@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h1>Добро пожаловать в сервис рассылок!</h1>
+            <p class="lead">Здесь вы можете создать и настроить отправку рассылок для информирования и привлечения
+                клиентов.</p>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Количество рассылок на сайте - {{mailing_count}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Количество активных рассылок - {{ is_active_count }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Количество клиентов - {{ clients_count }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-sm-start">
+                    <a class="nav-link active" href="{% url 'blog:blog_list' %}">Зайдите в наш блог, это только часть
+                        статей:</a>
+                    {% for object in random_blog_list %}
+                        <h1><a href="{% url 'blog:blog_detail' object.pk %}" class="nav-link px-2 text-body-dark">{{ object.title }}</a></h1>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <div class="col-12 mb-5">
+        <a class="btn btn-outline-primary" href="{% url 'main:mailing_create' %}">Добавить рассылку</a>
+    </div>
+    {% endif %}
+    {% for object in object_list %}
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <p class="card-text">
+                            {{ object.message.title }}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'main:mailing_detail' object.pk %}"
+                               class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                            {% if perms.main.can_change_mailing_status or user == object.owner or user.is_superuser %}
+                            <a href="{% url 'main:mailing_update' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-secondary">Редактировать</a>
+                            {% endif %}
+                            {% if user == object.owner or user.is_superuser %}
+                            <a href="{% url 'main:mailing_delete' object.pk %}" type="button"
+                               class="btn btn-sm btn-outline-danger">Удалить</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
